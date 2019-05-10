@@ -1,8 +1,10 @@
 import { readdirSync, statSync, Stats } from 'fs';
 import { resolve } from 'path';
 import { LevInfo } from './type';
+import { clone } from './utils';
 const ignoreList: string[] = ['node_modules', 'hooks', '.git'];
 let levInfos: LevInfo[] = [];
+
 /**
  * 遍历文件夹下所有文件文件夹
  * @param ancestor 父级路径
@@ -14,26 +16,37 @@ export function traverse(
     ancestor: string,
     pathName: string = '',
     level: number = 0,
-    callback: Function = function() {}
+    callback: Function = function() {},
+    lasStatus: number[] = []
 ) {
     const acPath: string = resolve(ancestor, pathName);
-    levInfos.push({
-        level,
-        ancestor,
-        pathName
-    });
+    if (level === 0) {
+        lasStatus = [0];
+        levInfos = [
+            {
+                ancestor,
+                pathName,
+                level,
+                lasStatus
+            }
+        ];
+    }
     callback(ancestor, pathName, level);
     const files: string[] = readdirSync(acPath);
-    files.forEach((item: string) => {
+    files.forEach((item: string, index: number) => {
+        const curLevel = level + 1;
+        lasStatus = clone(lasStatus);
+        lasStatus[curLevel] = Number(index === files.length - 1);
+        levInfos.push({
+            ancestor: acPath,
+            pathName: item,
+            level: curLevel,
+            lasStatus
+        });
         const fileStat: Stats = statSync(resolve(acPath, item));
         if (fileStat.isDirectory() && !~ignoreList.indexOf(item)) {
-            traverse(acPath, item, level + 1, callback);
+            traverse(acPath, item, curLevel, callback, lasStatus);
         } else {
-            levInfos.push({
-                level: level + 1,
-                ancestor: acPath,
-                pathName: item
-            });
             callback(acPath, item, level + 1);
         }
     });

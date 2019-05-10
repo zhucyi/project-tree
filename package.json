@@ -1,8 +1,10 @@
 {
     "name": "project-tree",
     "displayName": "project-tree",
+    "publisher": "zhucy",
     "description": "",
-    "version": "0.0.1",
+    "version": "0.1.0",
+    "repository": "https://github.com/GGLuckjiu/project-tree",
     "engines": {
         "vscode": "^1.31.1"
     },
@@ -14,6 +16,13 @@
     ],
     "main": "./dist/extension.js",
     "contributes": {
+        "iconThemes": [
+            {
+                "id": "awesome",
+                "label": "awesome",
+                "path": "./public/icon.jpg"
+            }
+        ],
         "commands": [
             {
                 "command": "extension.ProjectTree",
@@ -23,6 +32,24 @@
         "configuration": {
             "title": "ProjectTree configuration",
             "properties": {
+                "ProjectTree.theme": {
+                    "type": "string",
+                    "default": "perfect",
+                    "enum": [
+                        "normal",
+                        "perfect"
+                    ],
+                    "enumDescriptions": [
+                        "normal look",
+                        "perfect look"
+                    ],
+                    "description": "tree's outlook"
+                },
+                "ProjectTree.withComment": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Is there a comment at the end of the line"
+                },
                 "ProjectTree.commentDistance": {
                     "type": "number",
                     "default": 5,

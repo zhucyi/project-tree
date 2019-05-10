@@ -33,9 +33,13 @@ export default class {
     initContext(maxLen: number): void {
         this.context = '\r\n```\r\n';
         this.lines.forEach((item: string) => {
-            this.context += `${item}${new Array(
-                maxLen - item.length + 1 + this.config.commentDistance
-            ).join(' ')}${this.config.withComment ? '//' : ''}\r\n`;
+            if (this.config.withComment) {
+                this.context += `${item}${new Array(
+                    maxLen - item.length + 1 + this.config.commentDistance
+                ).join(' ')}//\r\n`;
+            } else {
+                this.context += `${item}\r\n`;
+            }
         });
         this.context += '\r\n```';
     }

@@ -1,3 +1,4 @@
+import { WorkspaceFolder, workspace, window } from 'vscode';
 import { traverse } from './traverse';
 import { resolve } from 'path';
 import { appendFileSync } from 'fs';
@@ -6,19 +7,44 @@ import theme from './theme';
 import Config from './config';
 
 export default class {
-    private vscode: any;
-    private folder: string;
-    private name: string;
-    private levInfos: LevInfo[];
+    private folder!: string;
+    private name!: string;
+    private levInfos!: LevInfo[];
     private lines!: string[];
     private context!: string;
     private config!: Config;
-    constructor(_vscode: any) {
-        this.vscode = _vscode;
-        this.name = _vscode.workspace.name;
-        this.folder = _vscode.workspace.rootPath.replace(this.name, '');
+    constructor() {
+        this.config = new Config();
+    }
+    async init(): Promise<void> {
+        const { workspaceFolders } = workspace;
+        let selectFolder!: WorkspaceFolder;
+        if (!workspaceFolders) {
+            window.showInformationMessage(
+                'Please open the folder and try again.'
+            );
+            return;
+        }
+        if (workspaceFolders.length === 1) {
+            selectFolder = workspaceFolders[0];
+        } else {
+            let name!: string;
+            try {
+                name = await this.pickFolder(workspaceFolders);
+            } catch (e) {
+                window.showInformationMessage(
+                    'Please open the folder and try again.'
+                );
+            }
+            this.name = name;
+            selectFolder =
+                workspaceFolders.find(
+                    (item: WorkspaceFolder) => item.name === name
+                ) || workspaceFolders[0];
+        }
+        this.name = selectFolder.name;
+        this.folder = selectFolder.uri.fsPath.replace(this.name, '');
         this.levInfos = traverse(this.folder, this.name, 0) || [];
-        this.config = new Config(_vscode);
     }
     initLines(): void {
         const themFunc: any = {
@@ -43,11 +69,40 @@ export default class {
         });
         this.context += '\r\n```';
     }
-    action(): void {
+    /**
+     * pick工作区的文件夹
+     * @param workspaceFolders 待选文件夹
+     */
+    pickFolder(workspaceFolders: WorkspaceFolder[]): Promise<string> {
+        const folders = workspaceFolders.map(
+            (item: WorkspaceFolder) => item.name
+        );
+        return new Promise((res, rej) => {
+            window
+                .showQuickPick(folders, {
+                    placeHolder: 'choose folder to modify README.md',
+                    ignoreFocusOut: true
+                })
+                .then((folderName: string | undefined) => {
+                    if (folderName) {
+                        return res(folderName);
+                    }
+                    return rej();
+                });
+        });
+    }
+    async action(): Promise<void> {
+        await this.init();
+        if (!this.levInfos) {
+            return;
+        }
         this.initLines();
+        console.log(this.folder, this.name);
+
         appendFileSync(
-            resolve(this.vscode.workspace.rootPath, 'README.md'),
+            resolve(resolve(this.folder, this.name), 'README.md'),
             this.context
         );
+        window.showInformationMessage('Your README.md has been modified!');
     }
 }

@@ -3,7 +3,8 @@
     "displayName": "project-tree",
     "publisher": "zhucy",
     "description": "",
-    "version": "0.2.0",
+    "version": "0.2.1",
+    "icon": "images/tree-icon.jpg",
     "repository": "https://github.com/GGLuckjiu/project-tree",
     "keywords": [
         "README",

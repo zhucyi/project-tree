@@ -2,8 +2,8 @@
     "name": "project-tree",
     "displayName": "project-tree",
     "publisher": "zhucy",
-    "description": "",
-    "version": "0.2.1",
+    "description": "A vscode plugin that generates a tree directory in README.md.",
+    "version": "0.2.2",
     "icon": "images/tree-icon.jpg",
     "repository": "https://github.com/GGLuckjiu/project-tree",
     "keywords": [

@@ -3,7 +3,7 @@
     "displayName": "project-tree",
     "publisher": "zhucy",
     "description": "A vscode plugin that generates a tree directory in README.md.",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "icon": "images/tree-icon.jpg",
     "repository": "https://github.com/GGLuckjiu/project-tree",
     "keywords": [
@@ -31,6 +31,11 @@
         "configuration": {
             "title": "ProjectTree configuration",
             "properties": {
+                "ProjectTree.loadIgnore": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": ""
+                },
                 "ProjectTree.theme": {
                     "type": "string",
                     "default": "perfect",

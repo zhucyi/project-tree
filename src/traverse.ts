@@ -2,7 +2,7 @@ import { readdirSync, statSync, Stats } from 'fs';
 import { resolve } from 'path';
 import { LevInfo } from './type';
 import { clone } from './utils';
-const ignoreList: string[] = ['node_modules', 'hooks', '.git'];
+import { verify, produceRules } from './ignore/index';
 let levInfos: LevInfo[] = [];
 
 /**
@@ -30,6 +30,7 @@ export function traverse(
                 lasStatus
             }
         ];
+        produceRules(acPath); //解析gitignore规则
     }
     callback(ancestor, pathName, level);
     const files: string[] = readdirSync(acPath);
@@ -44,7 +45,7 @@ export function traverse(
             lasStatus
         });
         const fileStat: Stats = statSync(resolve(acPath, item));
-        if (fileStat.isDirectory() && !~ignoreList.indexOf(item)) {
+        if (fileStat.isDirectory() && verify(acPath, item)) {
             traverse(acPath, item, curLevel, callback, lasStatus);
         } else {
             callback(acPath, item, level + 1);

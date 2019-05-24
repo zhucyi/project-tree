@@ -17,11 +17,7 @@ export function produceRules(igPath: string): void {
         ignoreList = fileStr
             .split(/\r?\n/)
             .map((item: string) => {
-                const itm: string = item.trim();
-                if (item[0] === '#') {
-                    return '';
-                }
-                return itm;
+                return item.replace(/#.*/, '').trim();
             })
             .filter((item: string) => {
                 return !!item;

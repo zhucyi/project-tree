@@ -26,10 +26,7 @@ export default function(
                 (lasStatus.slice(-1)[0] ? las : firMid) + horizontal + ' ';
         }
         line += lastIcon;
-        const lineName = `${line}${pathName} [${lasStatus}][${lasStatus.slice(
-            1,
-            lasStatus.length - 1
-        )}] (${level})`;
+        const lineName = `${line}${pathName}`;
         maxLen = lineName.length > maxLen ? lineName.length : maxLen;
         return lineName;
     });

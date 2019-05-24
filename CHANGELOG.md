@@ -7,6 +7,7 @@
 * 0.2.1 终于加上icon
 * 0.2.2 好了!icon确定了
 * 0.2.3 修改了bug
+* 0.2.4 修改了bug
 ***
 * 0.0.1 implements the basic generation markdown project tree structure
 * 0.1.0 Added whether to display comments, two tree structures showing perfect and normal
@@ -15,3 +16,4 @@
 * 0.2.1 Finally plus icon
 * 0.2.2 Ok! icon is determined
 * 0.2.3 fix bug
+* 0.2.4 fix bug

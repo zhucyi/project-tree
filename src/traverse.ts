@@ -38,14 +38,19 @@ export function traverse(
         const curLevel = level + 1;
         lasStatus = clone(lasStatus);
         lasStatus[curLevel] = Number(index === files.length - 1);
+        const fileStat: Stats = statSync(resolve(acPath, item));
+        const isDirectory: boolean = fileStat.isDirectory();
+        const isBlocked: boolean = verify(acPath, item, isDirectory);
+        if (isBlocked) {
+            return;
+        }
         levInfos.push({
             ancestor: acPath,
             pathName: item,
             level: curLevel,
             lasStatus
         });
-        const fileStat: Stats = statSync(resolve(acPath, item));
-        if (fileStat.isDirectory() && verify(acPath, item)) {
+        if (isDirectory) {
             traverse(acPath, item, curLevel, callback, lasStatus);
         } else {
             callback(acPath, item, level + 1);

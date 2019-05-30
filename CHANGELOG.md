@@ -9,6 +9,7 @@
 * 0.2.3 修改了bug
 * 0.2.4 修改了bug
 * 0.2.5 看看提交记录就知道我干了什么蠢事了...
+* 0.2.6 看看提交记录就知道我干了什么蠢事了...
 ***
 * 0.0.1 implements the basic generation markdown project tree structure
 * 0.1.0 Added whether to display comments, two tree structures showing perfect and normal

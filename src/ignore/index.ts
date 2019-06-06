@@ -32,7 +32,6 @@ export function produceRules(igPath: string): void {
             .filter((item: string) => {
                 return !!item;
             });
-        console.log(ignoreList);
     } catch (e) {
         ignoreList = ignoreList.concat(extraList);
         console.log(e);
@@ -60,12 +59,6 @@ function tran2Reg(): void {
         } else {
             ignoreRegs.push(new RegExp(itm));
         }
-    });
-    notIgnoreRegs.forEach(item => {
-        console.log('not', item.toString());
-    });
-    ignoreRegs.forEach(item => {
-        console.log(item.toString());
     });
 }
 

@@ -1,14 +1,15 @@
 import { WorkspaceFolder, workspace, window } from 'vscode';
-import { traverse } from './traverse';
+import { traverse, traverseFolder } from './traverse';
 import { resolve } from 'path';
 import { appendFileSync } from 'fs';
-import { LevInfo } from './type';
+import { LevInfo, Folder } from './type';
 import theme from './theme';
 import Config from './config';
 
 export default class {
     private folder!: string;
     private name!: string;
+    private rootFolder!: Folder;
     private levInfos!: LevInfo[];
     private lines!: string[];
     private context!: string;
@@ -44,7 +45,10 @@ export default class {
         }
         this.name = selectFolder.name;
         this.folder = selectFolder.uri.fsPath.replace(this.name, '');
-        this.levInfos = traverse(this.folder, this.name, 0) || [];
+        this.levInfos = traverse(this.folder, this.name) || [];
+
+        this.rootFolder =
+            traverseFolder(this.folder, this.name) || new Folder();
     }
     initLines(): void {
         const themFunc: any = {
@@ -93,11 +97,10 @@ export default class {
     }
     async action(): Promise<void> {
         await this.init();
-        if (!this.levInfos) {
+        if (!this.rootFolder) {
             return;
         }
         this.initLines();
-        console.log(this.folder, this.name);
 
         appendFileSync(
             resolve(resolve(this.folder, this.name), 'README.md'),

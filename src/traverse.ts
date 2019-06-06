@@ -1,6 +1,6 @@
 import { readdirSync, statSync, Stats } from 'fs';
 import { resolve } from 'path';
-import { LevInfo } from './type';
+import { LevInfo, File, Folder } from './type';
 import { clone } from './utils';
 import { verify, produceRules } from './ignore/index';
 let levInfos: LevInfo[] = [];
@@ -59,4 +59,39 @@ export function traverse(
     if (level === 0) {
         return levInfos;
     }
+}
+
+export function traverseFolder(
+    ancestor: string,
+    pathName: string = '',
+    level: number = 0,
+    folder: Folder = new Folder(),
+    callback: Function = function() {}
+) {
+    const acPath: string = resolve(ancestor, pathName);
+    if (level === 0) {
+        folder = new Folder(ancestor, pathName, level);
+        produceRules(acPath); //解析gitignore规则
+    }
+    callback(ancestor, pathName, level);
+
+    const files: string[] = readdirSync(acPath);
+    files.forEach((item: string) => {
+        const curLevel = level + 1;
+        const fileStat: Stats = statSync(resolve(acPath, item));
+        const isDirectory: boolean = fileStat.isDirectory();
+        const isBlocked: boolean = verify(acPath, item, isDirectory);
+        if (isBlocked) {
+            return;
+        }
+        if (isDirectory) {
+            const childFolder: Folder = new Folder(acPath, item, curLevel);
+            folder.addChild(childFolder);
+            traverseFolder(acPath, item, curLevel, childFolder, callback);
+        } else {
+            folder.addChild(new File(acPath, item, curLevel));
+            callback(acPath, item, curLevel);
+        }
+    });
+    return folder;
 }

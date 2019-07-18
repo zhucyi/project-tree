@@ -14,6 +14,15 @@ export class File {
         this.pathName = pathName;
         this.level = level;
     }
+    getAncestor() {
+        return this.ancestor;
+    }
+    getPathName() {
+        return this.pathName;
+    }
+    getLevel() {
+        return this.level;
+    }
 }
 
 export class Folder {
@@ -31,6 +40,18 @@ export class Folder {
         this.pathName = pathName;
         this.level = level;
         this.children = children;
+    }
+    getAncestor() {
+        return this.ancestor;
+    }
+    getPathName() {
+        return this.pathName;
+    }
+    getLevel() {
+        return this.level;
+    }
+    getChildren() {
+        return this.children;
     }
     addChild(child: Folder | File) {
         this.children.push(child);

@@ -10,13 +10,15 @@ export default class Config {
         if (config) {
             return config;
         }
+        this.ensureConfig();
+        return (config = this);
+    }
+    ensureConfig() {
         const configuration: WorkspaceConfiguration = workspace.getConfiguration();
         this.withComment = !!configuration.get('ProjectTree.withComment');
         this.commentDistance =
             configuration.get('ProjectTree.commentDistance') || 1;
         this.theme = configuration.get('ProjectTree.theme') || this.theme;
-        this.loadIgnore =
-            configuration.get('ProjectTree.loadIgnore') || this.loadIgnore;
-        return (config = this);
+        this.loadIgnore = !!configuration.get('ProjectTree.loadIgnore');
     }
 }

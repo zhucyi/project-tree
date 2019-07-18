@@ -37,7 +37,6 @@ export default class {
                     'Please open the folder and try again.'
                 );
             }
-            this.name = name;
             selectFolder =
                 workspaceFolders.find(
                     (item: WorkspaceFolder) => item.name === name
@@ -45,12 +44,11 @@ export default class {
         }
         this.name = selectFolder.name;
         this.folder = selectFolder.uri.fsPath.replace(this.name, '');
-        this.levInfos = traverse(this.folder, this.name) || [];
-
         this.rootFolder =
             traverseFolder(this.folder, this.name) || new Folder();
     }
     initLines(): void {
+        this.levInfos = traverse(this.rootFolder) || [];
         const themFunc: any = {
             normal: theme.normal,
             perfect: theme.perfect
@@ -101,7 +99,6 @@ export default class {
             return;
         }
         this.initLines();
-
         appendFileSync(
             resolve(resolve(this.folder, this.name), 'README.md'),
             this.context

@@ -10,6 +10,7 @@
 * 0.2.4 修改了bug
 * 0.2.5 看看提交记录就知道我干了什么蠢事了...
 * 0.2.6 看看提交记录就知道我干了什么蠢事了...
+* 0.3.0 能读取本地的gitlog来进行文件树的排除啦
 ***
 * 0.0.1 implements the basic generation markdown project tree structure
 * 0.1.0 Added whether to display comments, two tree structures showing perfect and normal
@@ -19,3 +20,4 @@
 * 0.2.2 Ok! icon is determined
 * 0.2.3 fix bug
 * 0.2.4 fix bug
+* 0.3.0 Now you can read the local gitlog to exclude the file tree.

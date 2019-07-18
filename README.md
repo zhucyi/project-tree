@@ -9,6 +9,7 @@ settings:
 * `ProjectTree.theme`: Set tree's outlook
 * `ProjectTree.withComment`:Set whether you can add comments at the end of the line.
 * `ProjectTree.commentDistance`:set the distance between the comment and the longest title,the minimum is 1
+* `ProjectTree.loadIgnore`:Set whether you can ignore the .gitignore rules's containing files.
 
 -----------------------------------------------------------------------------------------------------------
 

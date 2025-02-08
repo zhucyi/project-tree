@@ -1,89 +1,91 @@
 {
-    "name": "project-tree",
-    "displayName": "project-tree",
-    "publisher": "zhucy",
-    "description": "A vscode plugin that generates a tree directory in README.md.",
-    "version": "0.3.0",
-    "icon": "images/tree-icon.jpg",
-    "repository": "https://github.com/GGLuckjiu/project-tree",
-    "keywords": [
-        "README",
-        "tree"
+  "name": "project-tree-v1",
+  "displayName": "project-tree-v1",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "project-tree-v1.helloWorld",
+        "title": "Hello World"
+      }
     ],
-    "engines": {
-        "vscode": "^1.31.1"
-    },
-    "categories": [
-        "Other"
-    ],
-    "license": "MIT",
-    "activationEvents": [
-        "onCommand:extension.ProjectTree"
-    ],
-    "main": "./dist/extension.js",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.ProjectTree",
-                "title": "Project Tree"
-            }
-        ],
-        "configuration": {
-            "title": "ProjectTree configuration",
-            "properties": {
-                "ProjectTree.loadIgnore": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Read and ignore the configuration in the gitignore file"
-                },
-                "ProjectTree.useDefaultIgnore": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": ""
-                },
-                "ProjectTree.theme": {
-                    "type": "string",
-                    "default": "perfect",
-                    "enum": [
-                        "normal",
-                        "perfect"
-                    ],
-                    "enumDescriptions": [
-                        "normal look",
-                        "perfect look"
-                    ],
-                    "description": "tree's outlook"
-                },
-                "ProjectTree.withComment": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Is there a comment at the end of the line"
-                },
-                "ProjectTree.commentDistance": {
-                    "type": "number",
-                    "default": 5,
-                    "description": "The distance between the comment and the longest title,the minimum is 1"
-                }
-            }
+    "configuration": {
+      "title": "ProjectTree configuration",
+      "properties": {
+        "ProjectTree.loadIgnore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Read and ignore the configuration in the gitignore file"
+        },
+        "ProjectTree.theme": {
+          "type": "string",
+          "default": "perfect",
+          "enum": [
+            "normal",
+            "perfect"
+          ],
+          "enumDescriptions": [
+            "normal look",
+            "perfect look"
+          ],
+          "description": "tree's outlook"
+        },
+        "ProjectTree.withComment": {
+          "type": "boolean",
+          "default": false,
+          "description": "Is there a comment at the end of the line"
+        },
+        "ProjectTree.commentDistance": {
+          "type": "number",
+          "default": 5,
+          "description": "The distance between the comment and the longest title,the minimum is 1"
+        },
+        "ProjectTree.ignoreFolders": {
+          "type": "array",
+          "description": "Folders that need to be ignored",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules",
+            ".git",
+            ".vscode"
+          ]
+        },
+        "ProjectTree.distFileName": {
+          "type": "string",
+          "description": "The file where the tree structure is located, by default it is README.md in the root directory of the project.",
+          "default": "README.md"
         }
-    },
-    "scripts": {
-        "vscode:prepublish": "webpack --mode production",
-        "compile": "webpack --mode development",
-        "watch": "webpack --mode development --watch",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "tsc -p ./ && node ./node_modules/vscode/bin/test",
-        "test-compile": "tsc -p ./"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "@types/mocha": "^2.2.42",
-        "@types/node": "^10.12.21",
-        "ts-loader": "^6.0.0",
-        "tslint": "^5.12.1",
-        "typescript": "^3.3.1",
-        "vscode": "^1.1.28",
-        "webpack": "^4.31.0",
-        "webpack-cli": "^3.3.2"
+      }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.54.0",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "eslint": "^9.13.0",
+    "typescript": "^5.6.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
 }

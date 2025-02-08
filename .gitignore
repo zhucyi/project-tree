@@ -1,8 +1,5 @@
 out
-node_modules
-VERSION
-*.vsix
-ROADMAP.md
-*.log
-/.vscode-test
 dist
+node_modules
+.vscode-test/
+*.vsix

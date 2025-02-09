@@ -3,15 +3,14 @@ import Entry from './index';
 import Config from './config';
 
 export function activate(context: vscode.ExtensionContext) {
+  const config = new Config();
+  const entry = new Entry();
+
+  vscode.workspace.onDidChangeConfiguration(() => config.ensureConfig());
+
   const disposable = vscode.commands.registerCommand(
-    'project-tree-v1.helloWorld',
-    () => {
-      new Entry().action();
-      vscode.window.showInformationMessage('Hello World from project-tree-v1!');
-      vscode.workspace.onDidChangeConfiguration(() => {
-        new Config().ensureConfig();
-      });
-    }
+    'project-tree.projectTree',
+    () => entry.action()
   );
 
   context.subscriptions.push(disposable);

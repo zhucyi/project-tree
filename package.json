@@ -1,6 +1,6 @@
 {
-  "name": "project-tree-v1",
-  "displayName": "project-tree-v1",
+  "name": "project-tree",
+  "displayName": "project-tree",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "project-tree-v1.helloWorld",
-        "title": "Hello World"
+        "command": "project-tree.projectTree",
+        "title": "Project Tree"
       }
     ],
     "configuration": {

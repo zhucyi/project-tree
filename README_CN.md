@@ -1,22 +1,21 @@
 # project-tree
-English | [简体中文](./README_CN.md)
+简体中文 | [English](./README.md)
 
-## Features
-Install the plugin, press `Ctrl+Shift+P` and enter `Project Tree` to activate the plugin.
-It will generate a tree structure of the project in the `README.md` file.
+## 功能
+安装插件后，按 `Ctrl+Shift+P` 并输入 `Project Tree` 以启动插件。
+插件会在 `README.md` 文件中生成项目的树结构。
 
-## Extension Settings
-| Name                        | Default Value | Description                                                                  |
-| --------------------------- | ------------- | ---------------------------------------------------------------------------- |
-| ProjectTree.theme           | 'perfect'     | Set the tree's appearance                                                    |
-| ProjectTree.withComment     | false         | Set whether comments can be added at the end of the line                     |
-| ProjectTree.commentDistance | 5             | Set the distance between the comment and the longest title, minimum is 1     |
-| ProjectTree.loadIgnore      | true          | Set whether to ignore files specified in .gitignore                          |
-| ProjectTree.ignoreFolders   | ['node_modules', '.git', '.vscode'] | List of folders to ignore                                                    |
-| ProjectTree.distFileName    | 'README.md'   | The target file for the output                                               |
+## 插件设置
+| 名称                        | 默认值       | 描述                                                                 |
+| --------------------------- | ------------ | -------------------------------------------------------------------- |
+| ProjectTree.theme           | 'perfect'    | 设置树的外观                                                        |
+| ProjectTree.withComment     | false        | 设置是否可以在行末添加注释                                          |
+| ProjectTree.commentDistance | 5            | 设置注释与最长标题之间的距离，最小值为 1                             |
+| ProjectTree.loadIgnore      | true         | 设置是否可以忽略 `.gitignore` 文件中包含的文件                       |
+| ProjectTree.ignoreFolders   | ['node_modules', '.git', '.vscode'] | 需要忽略的文件夹列表                                                |
+| ProjectTree.distFileName    | 'README.md'  | 树结构所在的文件，默认是项目根目录下的 `README.md` 文件              |
 
-
-## example
+## 示例
 ```
 project-tree
 ├─ .git

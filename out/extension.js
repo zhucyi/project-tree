@@ -32,13 +32,10 @@ const vscode = __importStar(require("vscode"));
 const index_1 = __importDefault(require("./index"));
 const config_1 = __importDefault(require("./config"));
 function activate(context) {
-    const disposable = vscode.commands.registerCommand('project-tree-v1.helloWorld', () => {
-        new index_1.default().action();
-        vscode.window.showInformationMessage('Hello World from project-tree-v1!');
-        vscode.workspace.onDidChangeConfiguration(() => {
-            new config_1.default().ensureConfig();
-        });
-    });
+    const config = new config_1.default();
+    const entry = new index_1.default();
+    vscode.workspace.onDidChangeConfiguration(() => config.ensureConfig());
+    const disposable = vscode.commands.registerCommand('project-tree.projectTree', () => entry.action());
     context.subscriptions.push(disposable);
 }
 // This method is called when your extension is deactivated

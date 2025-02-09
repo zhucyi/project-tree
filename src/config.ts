@@ -32,6 +32,7 @@ export default class Config {
     this.loadIgnore = !!configuration.get('ProjectTree.loadIgnore');
     this.ignoreFolders =
       configuration.get<string[]>('ProjectTree.ignoreFolders') || [];
-    this.distFileName = configuration.get('ProjectTree.distFileName') || this.distFileName;
+    this.distFileName =
+      configuration.get('ProjectTree.distFileName') || this.distFileName;
   }
 }

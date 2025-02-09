@@ -1,15 +1,28 @@
 {
   "name": "project-tree",
   "displayName": "project-tree",
-  "description": "",
-  "version": "0.0.1",
+  "publisher": "zhucy",
+  "description": "A vscode plugin that generates a tree directory in README.md.",
+  "version": "0.4.0",
+  "icon": "images/tree-icon.jpg",
+  "repository": "https://github.com/GGLuckjiu/project-tree",
+  "keywords": [
+    "README",
+    "tree",
+    "structure",
+    "directory"
+  ],
   "engines": {
     "vscode": "^1.54.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Visualization"
   ],
-  "activationEvents": [],
+  "license": "MIT",
+  "activationEvents": [
+    "onCommand:extension.ProjectTree"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -75,17 +88,19 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "package": "vsce package"
   },
   "devDependencies": {
-    "@types/vscode": "^1.54.0",
     "@types/mocha": "^10.0.9",
     "@types/node": "20.x",
+    "@types/vscode": "^1.54.0",
     "@typescript-eslint/eslint-plugin": "^8.10.0",
     "@typescript-eslint/parser": "^8.7.0",
-    "eslint": "^9.13.0",
-    "typescript": "^5.6.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.2",
+    "eslint": "^9.13.0",
+    "typescript": "^5.6.3"
   }
 }
